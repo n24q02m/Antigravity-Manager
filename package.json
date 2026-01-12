@@ -20,6 +20,7 @@
     "@tauri-apps/plugin-opener": "^2",
     "clsx": "^2.1.1",
     "daisyui": "^5.5.13",
+    "date-fns": "^4.1.0",
     "framer-motion": "^11.13.1",
     "i18next": "^25.7.2",
     "i18next-browser-languagedetector": "^8.2.0",
