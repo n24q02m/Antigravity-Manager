@@ -277,7 +277,7 @@ impl TokenManager {
 
         // 5. 遍历受监控的模型，检查保护与恢复
         let threshold = config.threshold_percentage as i32;
-        let mut changed = false;
+
 
         for model in models {
             let name = model.get("name").and_then(|v| v.as_str()).unwrap_or("");
@@ -291,7 +291,7 @@ impl TokenManager {
             if percentage <= threshold {
                 // 触发保护 (Issue #621 改为模型级)
                 let _ = self.trigger_quota_protection(account_id, account_path, percentage, threshold, name).await;
-                changed = true;
+
             } else {
                 // 尝试恢复 (如果之前受限)
                 let protected_models = account_json.get("protected_models").and_then(|v| v.as_array());
@@ -301,7 +301,7 @@ impl TokenManager {
 
                 if is_protected {
                     let _ = self.restore_quota_protection(account_id, account_path, name).await;
-                    changed = true;
+
                 }
             }
         }
@@ -550,8 +550,8 @@ impl TokenManager {
                             // 【修复 Issue #284】立即解绑并切换账号，不再阻塞等待
                             // 原因：阻塞等待会导致并发请求时客户端 socket 超时 (UND_ERR_SOCKET)
                             tracing::debug!(
-                                "Sticky Session: Bound account {} is rate-limited ({}/s), unbinding and switching.",
-                                sid, bound_token.email, reset_sec
+                                "Sticky Session: Bound account {} is rate-limited ({}s), unbinding and switching.",
+                                bound_token.email, reset_sec
                             );
                             self.session_accounts.remove(sid);
                         } else if !attempted.contains(&bound_id) && !bound_token.protected_models.contains(target_model) {
@@ -1014,9 +1014,9 @@ impl TokenManager {
     }
     
     /// 清除过期的限流记录
-    #[allow(dead_code)]    /// 清除过期的限流记录
+    #[allow(dead_code)]
     pub fn clean_expired_rate_limits(&self) {
-        self.rate_limit_tracker.clean_expired();
+        self.rate_limit_tracker.cleanup_expired();
     }
     
     /// 【替代方案】通过 email 查找对应的 account_id
