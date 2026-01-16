@@ -85,6 +85,7 @@ dependencies = [
  "dirs 5.0.1",
  "eventsource-stream",
  "futures",
+ "gtk",
  "hyper",
  "hyper-util",
  "image",
