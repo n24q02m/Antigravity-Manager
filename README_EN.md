@@ -196,6 +196,10 @@ print(response.choices[0].message.content)
             - Improved technical wording for natural Japanese expressions (e.g., `pro_low` to "低消費").
         - **[Fix] Vietnamese Spelling Correction (PR #798, thanks to @vietnhatthai)**:
             - Fixed a typo in the Vietnamese `refresh_msg` (`hiện đài` -> `hiện tại`).
+        - **[Compatibility] Native Google API Key Support (PR #831)**:
+            - **Added `x-goog-api-key` Header Support**:
+                - The auth middleware now recognizes the `x-goog-api-key` header.
+                - Improves compatibility with official Google SDKs and third-party tools that use Google-style headers, eliminating the need to manually change header to `x-api-key`.
     *   **v3.3.42 (2026-01-18)**:
         - **[Traffic Log Enhancement] Protocol Recognition & Stream Integration (PR #814)**:
             - **Protocol Labeling**: Traffic logs now automatically identify and label protocol types (OpenAI in Green, Anthropic in Orange, Gemini in Blue) based on URI, providing instant clarity on request sources.

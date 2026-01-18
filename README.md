@@ -214,6 +214,10 @@ print(response.choices[0].message.content)
             - 优化了技术术语，使日语表达更自然（例如：`pro_low` 译为“低消費”）。
         - **[翻译修复] 越南语拼写错误修正 (PR #798, 感谢 @vietnhatthai)**:
             - 修复了越南语设置中 `refresh_msg` 的拼写错误（`hiện đài` -> `hiện tại`）。
+        - **[兼容性增强] 新增 Google API Key 原生支持 (PR #831)**:
+            - **支持 `x-goog-api-key` 请求头**:
+                - 认证中间件现在支持识别 `x-goog-api-key` 头部。
+                - 提高了与 Google 官方 SDK 及第三方 Google 风格客户端的兼容性，无需再手动修改 Header 为 `x-api-key`。
     *   **v3.3.42 (2026-01-18)**:
         - **[流量日志增强] 协议自动识别与流式响应整合 (PR #814)**:
             - **协议标签分类**: 流量日志列表现在可以根据 URI 自动识别并标注协议类型（OpenAI 绿色、Anthropic 橙色、Gemini 蓝色），使请求来源一目了然。
